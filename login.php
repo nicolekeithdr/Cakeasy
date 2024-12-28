@@ -1,10 +1,23 @@
 
 <?php
 
-    include "../init/connect.php";
-    include "../init/functions.php";
+    session_start();
 
-    require "../controllers/login-controller.php";
+    if(isset($_SESSION['role'])){
+        if($_SESSION['role'] == 'admin')
+        {
+            header('location: ../views/dashboard.php');
+        }
+    }
+
+    include "../../init/connect.php";
+    include "../../init/functions.php";
+
+    include "../controllers/login-controller.php";
+
+    
+    
+    
 ?>
 
 <!doctype html>
@@ -17,13 +30,13 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Cakeasy Bakeshop | Login</title>
+    <title>Cakeasy Bakeshop Admin | Login</title>
 
 
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link href="../assets/css/sign-in.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link href="../../assets/css/sign-in.css" rel="stylesheet">
 
     
     
@@ -34,8 +47,8 @@
 
     <main class="form-signin w-100 m-auto text-center">
         <form method="post">
-            <img class="" src="../assets/img/cakeasy_logo.png" alt="" width="200" height="auto">
-            <h1 class="h3 mb-3 fw-normal">Log in to your Account</h1>
+            <img class="" src="../../assets/img/cakeasy_logo.png" alt="" width="200" height="auto">
+            <h1 class="h3 mb-3 fw-normal">Admin Login</h1>
 
 
             <?php
@@ -77,17 +90,16 @@
                 <label for="floatingPassword">Password</label>
             </div>
 
-           
-            <button class="btn btn-primary w-100 py-2" type="submit" name="submit">Sign in</button>
             
-            <p class="mt-5 mb-3 text-body-secondary"><a href="signup.php">Create new Account</a></p>
+            <button class="btn btn-primary w-100 py-2" type="submit" name="submit">Sign in</button>
+                    
 
-            <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+            <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
         </form>
     </main>
 
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

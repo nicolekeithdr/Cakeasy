@@ -5,12 +5,9 @@ session_start();
 include "../../init/connect.php";
 include "../../init/functions.php";
 
-if(isset($_SESSION))
-{
-  if($_SESSION['role'] == 'admin')
-  {
-   
-  }else{
+if (isset($_SESSION)) {
+  if ($_SESSION['role'] == 'admin') {
+  } else {
     header('location: ../views/login.php');
   }
 }
@@ -28,13 +25,12 @@ if(isset($_SESSION))
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>Cakeasy Bakeshop Admin | Orders</title>
+  <title>Cakeasy Bakeshop Admin | Dashboard</title>
 
   <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../../assets/css/admin.style.css">
   <link rel="stylesheet" href="../../assets/css/dashboard.css">
-
 </head>
 
 <body>
@@ -79,7 +75,7 @@ if(isset($_SESSION))
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="dashboard.php">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="dashboard.php">
                   <svg class="bi">
                     <use xlink:href="#house-fill" />
                   </svg>
@@ -87,7 +83,7 @@ if(isset($_SESSION))
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                <a class="nav-link d-flex align-items-center gap-2" href="orders.php">
                   <svg class="bi">
                     <use xlink:href="#file-earmark" />
                   </svg>
@@ -103,7 +99,7 @@ if(isset($_SESSION))
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 " href="users.php">
+                <a class="nav-link d-flex align-items-center gap-2" href="users.php">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
@@ -117,10 +113,13 @@ if(isset($_SESSION))
               <ul class="nav flex-column mb-auto">
                 
                 <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="../../init/destroy.php?url=admin">
-                <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                Sign out
-              </a>
+                  <a class="nav-link d-flex align-items-center gap-2" href="../../init/destroy.php?url=admin">
+                    <svg class="bi">
+                      <use xlink:href="#door-closed" />
+                    </svg>
+                    Sign out
+                  </a>
+                </li>
               </ul>
           </div>
         </div>
@@ -128,67 +127,25 @@ if(isset($_SESSION))
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Customers</h1>
-          
-           
+          <h1 class="h2">Dashboard</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+             
+            </div>
+          </div>
         </div>
 
-      <?php
 
-      if (isset($_GET['url'])) {
-        if ($_GET['url'] == 'review') {
-          
-          
-         include 'partials/reviewOrder.php';
+        <h1>WELCOME!</h1>
+        <?php include 'partials/dashboard-partial.php' ?>
 
-        }
+        <script src="../../../canvaJS/canvasjs.min.js"></script>
+        <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/dashboard.js"></script>
 
-        
-
-      } else {
-
-        ?>
-
-        <table class="table border border-5 rounded-3">
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Transaction Code</th>
-                <th scope="col">Details</th>
-                <th scope="col">Account</th>
-                <th scope="col">Amount (Php)</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php include 'partials/ordersTable.php'; ?>
-            </tbody>
-        </table>
-
-      <?php
-
-      }
-
-
-
-      ?>
-
-
-
-
-
-      
-
-      <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="../../assets/js/dashboard.js"></script>
-
-      <script src="../../assets/js/jquery-3.7.1.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-
-      
+        <script src="../../assets/js/jquery-3.7.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 
 
 </body>

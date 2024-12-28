@@ -15,6 +15,18 @@ if(isset($_SESSION))
   }
 }
 
+if(isset($_GET['url']))
+{
+  if($_GET['url'] == 'addUser' || $_GET['url'] == 'archive' || $_GET['url'] == 'restore')
+  {
+    require "../controllers/users-controller.php";
+    
+  }else if($_GET['url'] == 'editUser')
+  {
+    require "../controllers/users-edit-controller.php";
+  }
+}
+
 ?>
 
 
@@ -28,12 +40,14 @@ if(isset($_SESSION))
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>Cakeasy Bakeshop Admin | Orders</title>
+  <title>Cakeasy Bakeshop Admin | Accounts</title>
 
   <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../../assets/css/admin.style.css">
   <link rel="stylesheet" href="../../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../../assets/css/popup.css">
+
 
 </head>
 
@@ -87,7 +101,7 @@ if(isset($_SESSION))
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                <a class="nav-link d-flex align-items-center gap-2" href="orders.php">
                   <svg class="bi">
                     <use xlink:href="#file-earmark" />
                   </svg>
@@ -103,7 +117,7 @@ if(isset($_SESSION))
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 " href="users.php">
+                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
@@ -129,6 +143,24 @@ if(isset($_SESSION))
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Customers</h1>
+
+          <div class="btn-toolbar mb-2 mb-md-0" style='display:
+              <?php
+
+                if(isset($_GET['url']))
+                {
+                  
+                    echo 'none';
+                  
+                }else
+                {
+                  echo 'block';
+                }
+
+              ?>'>
+              
+              <a href="users.php?url=addUser" class="btn btn-sm btn-primary d-flex align-items-center gap-1">Add new User</a>
+            </div>
           
            
         </div>
@@ -136,35 +168,40 @@ if(isset($_SESSION))
       <?php
 
       if (isset($_GET['url'])) {
-        if ($_GET['url'] == 'review') {
-          
-          
-         include 'partials/reviewOrder.php';
+        if ($_GET['url'] == 'addUser') {
+     
+         include 'partials/add-users.php';
 
         }
 
-        
+        if($_GET['url'] == 'editUser')
+        {
+          include 'partials/edit-users.php';
+        }
 
       } else {
 
         ?>
 
         <table class="table border border-5 rounded-3">
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Transaction Code</th>
-                <th scope="col">Details</th>
-                <th scope="col">Account</th>
-                <th scope="col">Amount (Php)</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php include 'partials/ordersTable.php'; ?>
-            </tbody>
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Username</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+          <?php
+            include '../views/partials/user-partial.php'
+          ?>
+          </tbody>
+
         </table>
 
       <?php
@@ -188,7 +225,41 @@ if(isset($_SESSION))
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 
-      
+      <script>
+        function changePass(){
+
+          let old = '<?=$row[0]['password']?>';
+
+          let pField = $('div[class="pWordInput"]');
+          let pass = $('input[name="pass"]');
+          let rePass = $('input[name="rePass"]');
+          let isChange = $('input[name="isPasswordChange"]');
+
+          let trig = $('p[id="changeToggler"]');
+
+          if(trig.text() === 'Reset Password')
+        {
+          pass.val('');
+          rePass.val('');
+          isChange.val('true');
+          trig.text('Cancel')
+
+          pField.css({'display' : 'block'});
+        }
+        else
+        {
+          pass.val(old);
+          rePass.val(old);
+          isChange.val('false');
+          trig.text('Reset Password')
+
+          pField.css({'display' : 'none'});
+        }
+
+          
+
+        }
+      </script>
 
 
 </body>

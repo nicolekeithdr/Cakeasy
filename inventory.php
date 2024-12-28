@@ -15,6 +15,20 @@ if(isset($_SESSION))
   }
 }
 
+if(isset($_GET['url']))
+{
+  if($_GET['url'] == 'add' || $_GET['url'] == 'archive' || $_GET['url'] == 'restore')
+  {
+    require "../controllers/inventory-controller.php";
+    
+  }else if($_GET['url'] == 'edit')
+  {
+    require "../controllers/inventory-edit-controller.php";
+  }
+}
+
+
+
 ?>
 
 
@@ -28,12 +42,13 @@ if(isset($_SESSION))
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.122.0">
-  <title>Cakeasy Bakeshop Admin | Orders</title>
+  <title>Cakeasy Bakeshop Admin | Inventory</title>
 
   <link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="../../assets/css/admin.style.css">
   <link rel="stylesheet" href="../../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../../assets/css/popup.css">
 
 </head>
 
@@ -87,7 +102,7 @@ if(isset($_SESSION))
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" href="#">
+                <a class="nav-link d-flex align-items-center gap-2" href="orders.php">
                   <svg class="bi">
                     <use xlink:href="#file-earmark" />
                   </svg>
@@ -95,7 +110,7 @@ if(isset($_SESSION))
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="inventory.php">
+                <a class="nav-link d-flex align-items-center gap-2 active" href="inventory.php">
                   <svg class="bi">
                     <use xlink:href="#cart" />
                   </svg>
@@ -103,7 +118,7 @@ if(isset($_SESSION))
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 " href="users.php">
+                <a class="nav-link d-flex align-items-center gap-2" href="users.php">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
@@ -128,43 +143,63 @@ if(isset($_SESSION))
 
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Customers</h1>
+          <h1 class="h2">Inventory</h1>
           
-           
+            <div class="btn-toolbar mb-2 mb-md-0" style='display:
+              <?php
+
+                if(isset($_GET['url']))
+                {
+                  
+                    echo 'none';
+                  
+                }else
+                {
+                  echo 'block';
+                }
+
+              ?>'>
+              
+              <a href="inventory.php?url=addItem" class="btn btn-sm btn-primary d-flex align-items-center gap-1">Add new Item</a>
+            </div>
         </div>
 
       <?php
 
       if (isset($_GET['url'])) {
-        if ($_GET['url'] == 'review') {
-          
-          
-         include 'partials/reviewOrder.php';
+        if ($_GET['url'] == 'addItem') {
+     
+         include 'partials/add-item.php';
 
         }
 
-        
+        if($_GET['url'] == 'edit')
+        {
+          include 'partials/edit-item.php';
+        }
 
       } else {
 
         ?>
 
         <table class="table border border-5 rounded-3">
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Transaction Code</th>
-                <th scope="col">Details</th>
-                <th scope="col">Account</th>
-                <th scope="col">Amount (Php)</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php include 'partials/ordersTable.php'; ?>
-            </tbody>
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Image</th>
+              <th scope="col">Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Description</th>
+              <th scope="col">Price</th>
+              <th scope="col">In Stock</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <?php include 'partials/inventory-partial.php'; ?>
+          </tbody>
+
         </table>
 
       <?php
@@ -187,8 +222,6 @@ if(isset($_SESSION))
       <script src="../../assets/js/jquery-3.7.1.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-
-      
 
 
 </body>
